@@ -32,6 +32,11 @@
   --font-display: var(--font-display);
 }
 
+html.dark {
+  --color-background: #0b1125;
+  --color-foreground: #e3e3e3;
+}
+
 html,
 body {
   background-color: var(--color-bg-primary);
