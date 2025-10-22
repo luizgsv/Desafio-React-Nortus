@@ -8,7 +8,7 @@ export function middleware(req: NextRequest) {
 
   const { pathname } = req.nextUrl;
 
-  const publicPaths = ['/login', '/_next', '/favicon.ico', '/api'];
+  const publicPaths = ['/login', '/_next', '/favicon.ico', '/api', '/img'];
 
   const isPublicPath = publicPaths.some((path) => pathname.startsWith(path));
 
@@ -26,5 +26,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|_next/img).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|img).*)'],
 };

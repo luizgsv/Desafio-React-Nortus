@@ -9,11 +9,15 @@ export function useLogin() {
 
   return useMutation({
     mutationFn: authService.login,
-    onSuccess: (data) => {
-      localStorage.setItem(process.env.NEXT_PUBLIC_AUTH_TOKEN_KEY || 'auth_token', data.token);
-      // document.cookie = `${process.env.NEXT_PUBLIC_AUTH_TOKEN_KEY || 'auth_token'}=${data.token}; path=/; max-age=${
-      //   60 * 60 * 24
-      // }`; // 1 dia
+    onSuccess: async (data) => {
+      await fetch('/api/auth/set-cookie', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: data.token }),
+      });
+
+      localStorage.setItem('user_name', data.username);
+
       toast.success('Login realizado com sucesso!');
       router.push('/');
     },
