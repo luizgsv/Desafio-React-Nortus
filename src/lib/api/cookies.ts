@@ -2,7 +2,7 @@
 
 import { cookies } from 'next/headers';
 
-const TOKEN_KEY = process.env.AUTH_TOKEN_KEY || 'auth_token';
+const TOKEN_KEY = process.env.NEXT_PUBLIC_AUTH_TOKEN_KEY || 'auth_token';
 
 export async function setAuthToken(token: string) {
   (await cookies()).set(TOKEN_KEY, token, {
