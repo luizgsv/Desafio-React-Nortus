@@ -1,5 +1,7 @@
 'use client';
 
+import { definePageTitleByPathname } from '@/utils/define-page-title';
+
 export function Header() {
   return (
     <header
@@ -9,7 +11,7 @@ export function Header() {
         backdrop-blur-md flex items-center justify-between px-40
       "
     >
-      <h1 className="text-lg font-semibold text-primary">Dashboard</h1>
+      <h1 className="text-lg font-semibold text-primary">{definePageTitleByPathname()}</h1>
     </header>
   );
 }
