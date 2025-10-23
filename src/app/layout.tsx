@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Space_Grotesk } from 'next/font/google';
 import '../styles/globals.css';
 import { Providers } from '@/providers';
+import 'maplibre-gl/dist/maplibre-gl.css';
 
 const space_grotesk = Space_Grotesk({
   variable: '--font-space-grotesk',

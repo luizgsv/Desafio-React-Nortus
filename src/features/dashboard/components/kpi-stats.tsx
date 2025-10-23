@@ -54,7 +54,7 @@ function KpiCard({ title, value, variation, positive }: KpiCardProps) {
         p-6
         w-full
         shadow-md
-        border border-[#1E293B]
+        border border-zinc-800
         flex flex-col justify-between
       "
     >

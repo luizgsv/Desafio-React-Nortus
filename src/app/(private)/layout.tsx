@@ -3,7 +3,7 @@ import { Header } from '@/components/layout/header';
 
 export default function PrivateLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative min-h-screen w-screen bg-background text-foreground overflow-hidden">
+    <div className="relative min-h-screen max-w-screen bg-background text-foreground overflow-hidden">
       {/* 🔹 Header fixo e ocupando a tela toda */}
       <Header />
 

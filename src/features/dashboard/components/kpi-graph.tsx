@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-export function KpiCard() {
+export function KpiGraph() {
   const [active, setActive] = useState('ARPU');
   const filters = ['Retenção', 'Conversão', 'Churn', 'ARPU'];
 
@@ -76,7 +76,7 @@ export function KpiCard() {
   };
 
   return (
-    <div className="bg-secondary/40 border border-zinc-600 rounded-3xl p-6 shadow-lg col-span-3 w-full max-w-3xl mx-auto">
+    <div className="bg-secondary/40 border border-zinc-800 rounded-3xl p-6 shadow-lg col-span-3 w-full max-w-3xl mx-auto">
       <div className="flex items-center justify-between mb-4">
         <h2 className=" text-lg font-semibold">Evolução dos KPI&apos;s</h2>
 

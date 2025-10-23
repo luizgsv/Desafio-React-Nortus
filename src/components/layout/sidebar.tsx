@@ -49,7 +49,7 @@ export function Sidebar() {
                 className={cn(
                   'p-3 rounded-xl transition-all flex items-center justify-center',
                   isActive
-                    ? 'bg-accent text-accent-foreground shadow-[0_0_4px_3px_rgba(24,118,210,0.5)] scale-105'
+                    ? 'bg-accent text-accent-foreground shadow-[var(--shadow-accent)] scale-105'
                     : 'text-muted-foreground hover:bg-accent/20 hover:text-accent hover:scale-105',
                 )}
               >
@@ -60,7 +60,7 @@ export function Sidebar() {
         </nav>
       </div>
 
-      <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center text-white font-semibold shadow-[0_0_10px_rgba(24,118,210,0.4)]">
+      <div className="w-10 h-10 bg-accent rounded-full flex items-center justify-center text-white font-semibold shadow-[var(--shadow-accent)]">
         {userName}
       </div>
     </aside>
