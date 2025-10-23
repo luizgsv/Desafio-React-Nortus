@@ -1,5 +1,6 @@
 'use client';
 
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { memo } from 'react';
@@ -55,23 +56,13 @@ export function KpiStats({ data }: Props) {
 
 export const KpiCard = memo(function KpiCard({ title, value, variation, positive }: KpiCardProps) {
   return (
-    <div
-      className="relative overflow-hidden
-        bg-[#0B1120]
-        rounded-2xl
-        p-6
-        w-full
-        shadow-md
-        border border-zinc-800
-        flex flex-col justify-between
-      "
-    >
-      <div>
+    <Card className="flex flex-col justify-between relative overflow-hidden bg-[#0B1120] p-6 shadow-md">
+      <CardHeader>
         <h3 className="text-gray-400 text-sm font-medium mb-2">{title}</h3>
         <p className="text-white text-2xl font-semibold">{value}</p>
-      </div>
+      </CardHeader>
 
-      <div className="flex items-center justify-between mt-4">
+      <CardContent className="flex items-center justify-between mt-4">
         <span
           className={cn(
             'text-sm font-medium',
@@ -99,7 +90,7 @@ export const KpiCard = memo(function KpiCard({ title, value, variation, positive
             width={82}
           />
         )}
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 });

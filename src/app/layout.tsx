@@ -31,7 +31,7 @@ export default function RootLayout({
     <html
       lang="pt-BR"
       suppressHydrationWarning
-      className={`${space_grotesk.variable} ${inter.variable} antialiased`}
+      className={`${space_grotesk.variable} ${inter.variable}`}
     >
       <body className="antialiased">
         <Providers>{children}</Providers>

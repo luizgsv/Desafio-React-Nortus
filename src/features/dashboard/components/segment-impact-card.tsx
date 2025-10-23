@@ -43,7 +43,7 @@ export function SegmentImpactCard({ data }: Props) {
   };
 
   return (
-    <Card className="col-span-2 bg-secondary/40 border border-zinc-800 rounded-3xl p-6 shadow-lg">
+    <Card className="col-span-2 p-6">
       <CardHeader className="text-center pb-2">
         <h2 className="text-lg font-semibold">Mapa de impacto por segmento</h2>
       </CardHeader>

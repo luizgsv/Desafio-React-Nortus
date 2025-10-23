@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import dynamic from 'next/dynamic';
 import { useMemo, useState } from 'react';
 import { DashboardResponse } from '../models/types/response-dashboard';
+import { Card } from '@/components/ui/card';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
@@ -81,7 +82,7 @@ export function KpiGraph({ data }: Props) {
   };
 
   return (
-    <div className="bg-secondary/40 border border-zinc-800 rounded-3xl p-6 shadow-lg col-span-3 w-full max-w-3xl mx-auto">
+    <Card className="p-6 col-span-3 w-full">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold">Evolução dos KPI&apos;s</h2>
 
@@ -104,6 +105,6 @@ export function KpiGraph({ data }: Props) {
       </div>
 
       <Chart options={options} series={series} type="area" height={300} />
-    </div>
+    </Card>
   );
 }
