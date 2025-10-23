@@ -1,7 +1,7 @@
 export const pageTitleConfig = [
   {
     title: 'Dashboard',
-    pathname: '/',
+    pathname: '/main',
   },
   {
     title: 'Tickets',
