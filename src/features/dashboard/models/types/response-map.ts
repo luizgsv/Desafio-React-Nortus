@@ -1,4 +1,4 @@
-interface Location {
+type Location = {
   id: string;
   name: string;
   description: string;
@@ -7,10 +7,12 @@ interface Location {
   address: string;
   icon: string;
   color: string;
-}
+};
 
-export interface MapData {
-  center: [number, number];
-  zoom: number;
-  locations: Location[];
-}
+export type MapResponse = {
+  data: {
+    center: [number, number];
+    zoom: number;
+    locations: Location[];
+  };
+};

@@ -1,9 +1,9 @@
 'use client';
-import { MapData } from '@/features/dashboard/models/types/map-data';
 import maplibregl from 'maplibre-gl';
 import { useEffect, useRef } from 'react';
+import { MapResponse } from '../../models/types/response-map';
 
-export function MapLibreGl({ data }: { data: MapData }) {
+export function MapLibreGl({ data }: MapResponse) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

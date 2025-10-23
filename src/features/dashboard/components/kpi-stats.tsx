@@ -2,37 +2,45 @@
 
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
+import { memo } from 'react';
+import { DashboardResponse } from '../models/types/response-dashboard';
 
-interface KpiCardProps {
+type Props = {
+  data: DashboardResponse['kpisResume'];
+};
+
+type KpiCardProps = {
   title: string;
   value: string;
   variation: string;
   positive?: 'up' | 'down';
-}
+};
 
-export function KpiStats() {
+export function KpiStats({ data }: Props) {
   const cards: KpiCardProps[] = [
     {
       title: 'ARPU',
-      value: 'R$ 320,50',
-      variation: '+12% no período',
-      positive: 'up',
+      value: `R$ ${data.arpu.valor.toFixed(2)}`,
+      variation: `${data.arpu.variacao > 0 ? '+' : ''}${data.arpu.variacao}% no período`,
+      positive: data.arpu.variacao > 0 ? 'up' : 'down',
     },
     {
       title: 'Conversão IA',
-      value: '68,5%',
-      variation: '+8,2% no período',
+      value: `${data.conversion.valor.toFixed(1)}%`,
+      variation: `${data.conversion.variacao > 0 ? '+' : ''}${data.conversion.variacao}% no período`,
+      positive: data.conversion.variacao > 0 ? 'up' : 'down',
     },
     {
       title: 'Retenção',
-      value: '85%',
-      variation: '+2,5% no período',
+      value: `${data.retention.valor.toFixed(1)}%`,
+      variation: `${data.retention.variacao > 0 ? '+' : ''}${data.retention.variacao}% no período`,
+      positive: data.retention.variacao > 0 ? 'up' : 'down',
     },
     {
       title: 'Taxa de Churn',
-      value: '3,2%',
-      variation: '-1,5% no período',
-      positive: 'down',
+      value: `${data.churn.valor.toFixed(1)}%`,
+      variation: `${data.churn.variacao > 0 ? '+' : ''}${data.churn.variacao}% no período`,
+      positive: data.churn.variacao > 0 ? 'up' : 'down',
     },
   ];
 
@@ -45,7 +53,7 @@ export function KpiStats() {
   );
 }
 
-function KpiCard({ title, value, variation, positive }: KpiCardProps) {
+export const KpiCard = memo(function KpiCard({ title, value, variation, positive }: KpiCardProps) {
   return (
     <div
       className="relative overflow-hidden
@@ -64,14 +72,18 @@ function KpiCard({ title, value, variation, positive }: KpiCardProps) {
       </div>
 
       <div className="flex items-center justify-between mt-4">
-        <span className={cn('text-sm font-medium', positive ? 'text-green-500' : 'text-red-400')}>
+        <span
+          className={cn(
+            'text-sm font-medium',
+            positive === 'up' ? 'text-green-500' : 'text-red-400',
+          )}
+        >
           {variation}
         </span>
+
         {positive === 'up' && (
           <Image
-            className="absolute -bottom-2 right-2 object-cover
-            brightness-110 saturate-150
-            drop-shadow-[0_0_4px_#1565c0]"
+            className="absolute -bottom-2 right-2 object-cover brightness-110 saturate-150 drop-shadow-[0_0_4px_#1565c0]"
             src="/img/arrow-up.png"
             alt="arrow-up"
             height={73}
@@ -80,8 +92,7 @@ function KpiCard({ title, value, variation, positive }: KpiCardProps) {
         )}
         {positive === 'down' && (
           <Image
-            className="absolute bottom-0 right-0 brightness-110 saturate-150
-            drop-shadow-[0_0_4px_#c01515]"
+            className="absolute bottom-0 right-0 brightness-110 saturate-150 drop-shadow-[0_0_4px_#c01515]"
             src="/img/arrow-down.png"
             alt="arrow-down"
             height={82}
@@ -91,4 +102,4 @@ function KpiCard({ title, value, variation, positive }: KpiCardProps) {
       </div>
     </div>
   );
-}
+});

@@ -1,20 +1,40 @@
 'use client';
 
-import dynamic from 'next/dynamic';
-import { useState } from 'react';
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import dynamic from 'next/dynamic';
+import { useMemo, useState } from 'react';
+import { DashboardResponse } from '../models/types/response-dashboard';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-export function KpiGraph() {
-  const [active, setActive] = useState('ARPU');
-  const filters = ['Retenção', 'Conversão', 'Churn', 'ARPU'];
+type Props = {
+  data: DashboardResponse['kpisTrend'];
+};
+
+export function KpiGraph({ data }: Props) {
+  const filters = ['ARPU', 'Conversão', 'Churn', 'Retenção'];
+  const [active, setActive] = useState(filters[0]);
+
+  const currentSeries = useMemo(() => {
+    switch (active.toLowerCase()) {
+      case 'arpu':
+        return data.arpuTrend;
+      case 'conversão':
+        return data.conversionTrend;
+      case 'churn':
+        return data.churnTrend;
+      case 'retenção':
+        return data.retentionTrend;
+      default:
+        return data.arpuTrend;
+    }
+  }, [active, data]);
 
   const series = [
     {
-      name: active,
-      data: [90, 110, 160, 190, 150, 120, 130, 140, 200, 260, 240, 220],
+      name: currentSeries.name,
+      data: currentSeries.data,
     },
   ];
 
@@ -28,12 +48,12 @@ export function KpiGraph() {
     },
     stroke: {
       curve: 'smooth',
-      width: 1,
-      colors: ['#45b5d76b'], // cor com transparência leve
+      width: 2,
+      colors: ['#45b5d76b'],
     },
     fill: {
       type: 'solid',
-      colors: ['#11bed582'], // cor com transparência leve
+      colors: ['#11bed582'],
     },
     grid: {
       borderColor: 'rgba(255,255,255,0.08)',
@@ -43,34 +63,19 @@ export function KpiGraph() {
     tooltip: {
       theme: 'dark',
       y: {
-        formatter: (val: number) => `R$ ${val.toFixed(1)}k`,
+        formatter: (val: number) =>
+          active === 'ARPU' ? `R$ ${val.toFixed(2)}` : `${val.toFixed(1)}%`,
       },
     },
     dataLabels: { enabled: false },
     legend: { show: false },
     xaxis: {
-      categories: [
-        'Jan',
-        'Fev',
-        'Mar',
-        'Abr',
-        'Mai',
-        'Jun',
-        'Jul',
-        'Ago',
-        'Set',
-        'Out',
-        'Nov',
-        'Dez',
-      ],
+      categories: data.labels,
       labels: { style: { colors: '#64748B' } },
       axisBorder: { show: false },
       axisTicks: { show: false },
     },
     yaxis: {
-      min: 0,
-      max: 380,
-      tickAmount: 4,
       labels: { style: { colors: '#64748B' } },
     },
   };
@@ -78,7 +83,7 @@ export function KpiGraph() {
   return (
     <div className="bg-secondary/40 border border-zinc-800 rounded-3xl p-6 shadow-lg col-span-3 w-full max-w-3xl mx-auto">
       <div className="flex items-center justify-between mb-4">
-        <h2 className=" text-lg font-semibold">Evolução dos KPI&apos;s</h2>
+        <h2 className="text-lg font-semibold">Evolução dos KPI&apos;s</h2>
 
         <div className="flex gap-2 p-2 rounded-full bg-secondary/50">
           {filters.map((filter) => (
