@@ -11,6 +11,13 @@ type TicketsStore = {
   statusFilter: string;
   priorityFilter: string;
   responsibleFilter: string;
+  addTicket: (
+    ticket: Omit<Ticket, 'id' | 'createdAt' | 'status'> & {
+      id?: string;
+      createdAt?: string;
+      status?: string;
+    },
+  ) => void;
   setTickets: (tickets: Ticket[]) => void;
   setSearchTerm: (term: string) => void;
   setStatusFilter: (status: string) => void;
@@ -33,6 +40,32 @@ export const useTicketsStore = create<TicketsStore>((set, get) => ({
   statusFilter: 'Todos',
   priorityFilter: 'Todos',
   responsibleFilter: 'Todos',
+
+  addTicket: (payload) => {
+    const id = payload.id ?? `TK${Date.now().toString().slice(-6)}`;
+    const createdAt = payload.createdAt ?? new Date().toLocaleDateString('pt-BR');
+    const status = payload.status ?? 'Aberto';
+    const newTicket: Ticket = {
+      id,
+      createdAt,
+      status,
+      client: payload.client,
+      email: payload.email,
+      subject: payload.subject,
+      priority: payload.priority,
+      responsible: payload.responsible,
+    };
+
+    const { pageSize } = get();
+    const tickets = [newTicket, ...get().tickets];
+    const filteredTickets = [newTicket, ...get().filteredTickets];
+    set({
+      tickets,
+      filteredTickets,
+      currentPage: 1,
+      totalPages: Math.max(1, Math.ceil(filteredTickets.length / pageSize)),
+    });
+  },
 
   setTickets: (tickets) =>
     set({

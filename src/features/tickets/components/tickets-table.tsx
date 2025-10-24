@@ -131,20 +131,14 @@ export function TicketsTable({ data }: Props) {
       {
         key: 'actions',
         header: 'Ações',
-        render: (ticket: Ticket) => (
+        render: () => (
           <div className="flex items-center justify-start gap-4">
-            <Button
-              className="flex bg-transparent cursor-pointer items-center gap-2 text-accent hover:bg-transparent hover:opacity-65 transition-colors"
-              onClick={() => console.log('Editar ticket', ticket.id)}
-            >
+            <Button className="flex bg-transparent cursor-pointer items-center gap-2 text-accent hover:bg-transparent hover:opacity-65 transition-colors">
               <span className="text-sm font-medium">Editar</span>
               <PencilLineIcon size={14} />
             </Button>
 
-            <Button
-              className="flex bg-transparent cursor-pointer items-center gap-2 text-accent hover:bg-transparent hover:opacity-65 transition-colors"
-              onClick={() => console.log('Ver ticket', ticket.id)}
-            >
+            <Button className="flex bg-transparent cursor-pointer items-center gap-2 text-accent hover:bg-transparent hover:opacity-65 transition-colors">
               <span className="text-sm font-medium">Ver</span>
               <ChevronRight size={16} />
             </Button>
