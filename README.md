@@ -1,4 +1,4 @@
-﻿# 🚀 Desafio React – Acompanhante Luca
+﻿# 🚀 Desafio React – Nortus
 
 Painel administrativo desenvolvido em **Next.js 15** com autenticação, dashboard de KPIs, gestão de tickets e arquitetura escalável por features.  
 O projeto foi criado com foco em **boas práticas de arquitetura front-end, componentização e experiência do usuário (UI/UX)**.
