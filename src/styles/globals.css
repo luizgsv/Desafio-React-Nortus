@@ -9,7 +9,7 @@
   --color-accent: #1876d2; /* Botões, links ativos */
   --color-text-primary: #e3e3e3; /* Títulos */
   --color-text-secondary: #c9c9c9; /* Textos secundários */
-  --font-display: var(--font-space-grotesk);
+  --font-display: var(--font-montserrat);
   --font-body: var(--font-inter);
   --radius: 0.625rem;
 }

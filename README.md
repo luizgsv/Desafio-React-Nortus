@@ -1,200 +1,277 @@
-# 🧭 Nortus – Desafio React (Loomi)
+﻿# 🚀 Desafio React – Acompanhante Luca
 
-> Plataforma de **inteligência artificial para times de vendas e atendimento**, desenvolvida como parte do **Desafio React da Loomi**.
->
-> A aplicação simula o sistema **Nortus**, com autenticação, visualização de indicadores (KPIs) e gestão de tickets, consumindo a **API mockada oficial** da Loomi.
-
----
-
-## 🚀 Sumário
-
-- [Visão Geral](#-visão-geral)
-- [Stack Principal](#-stack-principal)
-- [Setup do Projeto](#-setup-do-projeto)
-- [Scripts Disponíveis](#-scripts-disponíveis)
-- [Estrutura de Pastas](#-estrutura-de-pastas)
-- [Padrões e Convenções](#-padrões-e-convenções)
-- [Fluxo Git / Branches](#-fluxo-git--branches)
-- [APIs e Endpoints](#-apis-e-endpoints)
-- [Licença](#-licença)
+Painel administrativo desenvolvido em **Next.js 15** com autenticação, dashboard de KPIs, gestão de tickets e arquitetura escalável por features.  
+O projeto foi criado com foco em **boas práticas de arquitetura front-end, componentização e experiência do usuário (UI/UX)**.
 
 ---
 
-## 💡 Visão Geral
-
-O **Nortus** é uma interface web desenvolvida com **Next.js + TypeScript**, seguindo princípios de **Clean Architecture simplificada** para front-end.  
-O projeto consome uma **API mockada** disponibilizada pela Loomi e simula fluxos de login, dashboards e gestão de tickets.
-
----
-
-## 🧩 Stack Principal
-
-| Categoria                   | Tecnologias                                                                       |
-| --------------------------- | --------------------------------------------------------------------------------- |
-| **Framework**               | [Next.js 15+ (App Router)](https://nextjs.org/docs/app)                           |
-| **Linguagem**               | [TypeScript](https://www.typescriptlang.org/)                                     |
-| **Estilos**                 | [Tailwind CSS v4](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/) |
-| **Validação**               | [Zod](https://zod.dev/)                                                           |
-| **Gerenciamento de Estado** | [Zustand](https://zustand-demo.pmnd.rs/)                                          |
-| **HTTP Client**             | [Axios](https://axios-http.com/)                                                  |
-| **Data Fetching & Cache**   | [TanStack Query (React Query)](https://tanstack.com/query)                        |
-| **Feedbacks**               | [Sonner](https://sonner.emilkowal.ski/)                                           |
-| **Autenticação (mock)**     | Cookies + Middleware do Next.js                                                   |
-| **Gráficos**                | [ApexCharts.js](https://apexcharts.com/)                                          |
-| **Design Tokens**           | Definidos via `@theme inline` (Tailwind 4)                                        |
+## 🗂️ Tabela de Conteúdos
+1. [🏷️ Visão Geral do Projeto](#️-visão-geral-do-projeto)  
+2. [⚙️ Tecnologias Utilizadas](#-tecnologias-utilizadas)  
+3. [📁 Estrutura do Projeto](#-estrutura-do-projeto)  
+4. [🔐 Fluxo de Autenticação](#-fluxo-de-autenticação)  
+5. [📊 Módulo de Dashboard](#-módulo-de-dashboard)  
+6. [🎫 Módulo de Tickets](#-módulo-de-tickets)  
+7. [💬 Chat Placeholder](#-chat-placeholder)  
+8. [🎨 UI e UX](#-ui-e-ux)  
+9. [📂 Integração com API e Mocks](#-integração-com-api-e-mocks)  
+10. [🧠 Gerenciamento de Estado](#-gerenciamento-de-estado)  
+11. [⚙️ Variáveis de Ambiente](#️-variáveis-de-ambiente)  
+12. [🧪 Como Executar o Projeto](#-como-executar-o-projeto)  
+13. [🚀 Melhorias Futuras](#-melhorias-futuras)  
+14. [🤖 Uso de IA e Assistência de Código](#-uso-de-ia-e-assistência-de-código)  
+15. [📄 Autor e Licença](#-autor-e-licença)
 
 ---
 
-## ⚙️ Setup do Projeto
+## 🏷️ Visão Geral do Projeto
 
-```bash
-# 1. Clonar o repositório
-git clone https://github.com/<seu-usuario>/nortus.git
-cd nortus
+**Nome:** Desafio React – Acompanhante Luca  
+**Propósito:** Painel administrativo com autenticação, visualização de KPIs, gestão de tickets e interface modular escalável.  
 
-# 2. Instalar dependências
-pnpm install
-
-# 3. Rodar o ambiente de desenvolvimento
-pnpm dev
-
-# 4. Gerar build de produção
-pnpm build && pnpm start
-```
-
-### 🔐 Variáveis de Ambiente
-
-> Arquivo `.env.local`
-
-```env
-NEXT_PUBLIC_API_BASE_URL=https://loomi.s3.us-east-1.amazonaws.com/mock-api-json/v2
-AUTH_TOKEN_KEY=nortus_token
-```
+O desafio visa demonstrar:
+- Domínio do **Next.js (App Router)**
+- Uso de **Zustand** para gerenciamento global de estado  
+- **Formulários validados com Zod + React Hook Form**  
+- **UI consistente** baseada em shadcn/ui  
+- Consumo de **endpoints mockados e reais**  
+- Padrões de arquitetura e componentização modernos  
 
 ---
 
-## 🧱 Estrutura de Pastas
+## ⚙️ Tecnologias Utilizadas
+
+- **Next.js 15 (App Router)** + **React 19**
+- **TypeScript 5**
+- **TailwindCSS 4** + **shadcn/ui (Radix Primitives)**
+- **Zod** + **React Hook Form**
+- **Zustand 5**
+- **TanStack Query (React Query)**
+- **Axios**
+- **ApexCharts** + **React ApexCharts**
+- **MapLibre GL**
+- **Sonner** (toasts)
+- **Lucide Icons**
+
+---
+
+## 📁 Estrutura do Projeto
+
+Organização modular por domínio:
 
 ```
 src/
-├── app/                       # Rotas e páginas (App Router)
-│   ├── layout.tsx             # Layout global da aplicação
-│   ├── page.tsx               # Página inicial (Dashboard)
-│   └── ...                    # Outras páginas (login, rotas privadas, etc.)
-│
-├── components/                # Componentes globais reutilizáveis
-│   ├── ui/                    # Componentes base (Button, Input, Modal, Loader...)
-│   ├── charts/                # Gráficos (ApexCharts)
-│   ├── tables/                # Tabelas reutilizáveis
-│   └── feedback/              # Toasts, Skeletons, etc.
-│
-├── features/                  # Domínios funcionais (arquitetura modular)
-│   ├── components/            # Componentes específicos de cada feature
-│   ├── hooks/                 # Hooks locais por domínio
-│   ├── schemas/               # Schemas de validação (Zod)
-│   └── services/              # Comunicação com API e lógica de domínio
-│
-├── hooks/                     # Hooks globais (useAuth, useQueryApi, etc.)
-│
-├── lib/
-│   ├── api/                   # Configuração do Axios e endpoints
-│   │   ├── axios.ts
-│   │   └── endpoints.ts
-│   ├── store/                 # Zustand stores globais (authStore, uiStore)
-│   ├── auth/                  # Helpers de autenticação (cookies, tokens)
-│   └── utils/                 # Funções utilitárias (formatDate, debounce, etc.)
-│
-├── models/                    # Tipos, constantes e modelos de domínio
-│   ├── entity.model.ts
-│   └── index.ts
-│
-├── providers/                 # Providers globais (ThemeProvider, QueryClient, etc.)
-│   └── app-provider.tsx
-│
-├── styles/                    # Estilos globais e design tokens
-│   └── globals.css
-│
-├── types/                     # Tipos auxiliares e extensões globais
-│   └── next.d.ts
-│
-├── middleware.ts              # Middleware de autenticação (rotas privadas)
-└── tests/                     # Testes unitários e de integração
+ ├── app/                     # Rotas, layouts e middleware
+ │   ├── api/auth/            # Endpoints: login, logout e cookies
+ │   ├── (private)/           # Rotas privadas (Dashboard, Tickets, Chat)
+ │   └── (public)/login/      # Rota pública
+ │
+ ├── components/              # Componentes base (Button, Card, Dialog, etc.)
+ │
+ ├── features/
+ │   ├── dashboard/           # KPIs, gráficos e mapa
+ │   ├── tickets/             # Gestão de tickets
+ │   └── chat/                # Placeholder (rota simulada)
+ │
+ ├── lib/                     # Configurações globais, endpoints e utils
+ ├── store/                   # Zustand stores globais
+ └── styles/                  # Estilos globais e design tokens
 ```
 
 ---
 
-## 🧠 Padrões e Convenções
+---
 
-### 🧩 Nomenclatura de Branches
+## 📋 Gestão do Projeto
 
-| Tipo    | Exemplo              |
-| ------- | -------------------- |
-| Feature | `feature/login-page` |
-| Fix     | `fix/ticket-filter`  |
-| Chore   | `chore/setup-eslint` |
-| Docs    | `docs/readme`        |
+O acompanhamento das atividades, tarefas e progresso do desenvolvimento foi feito utilizando o recurso de **Projects do GitHub**,  
+disponível neste mesmo repositório.  
 
-### 🧠 Commits Semânticos
+Lá é possível visualizar:
+- O **Kanban completo** com status das tarefas (A Fazer, Em Progresso, Concluído e Adiado/On Hold);  
+- As **etapas de implementação** correspondentes aos módulos (Dashboard, Tickets, UI e Autenticação).  
+
+🔗 A gestão do projeto pode ser acessada diretamente pela aba **“Projects”** do repositório no GitHub.
+
+## 🔐 Fluxo de Autenticação
+
+Fluxo de autenticação completo implementado:
+
+- Login validado com **React Hook Form + Zod**, com feedback visual via **Sonner**  
+- API `POST /api/auth/set-cookie` cria **cookie HTTP-only** com o token  
+- **Middleware (`middleware.ts`)** protege todas as rotas privadas e redireciona para `/login` se não houver autenticação  
+- API `POST /api/auth/logout` remove o cookie e limpa dados locais (`localStorage`)  
+- **Dropdown de usuário na sidebar** permite logout seguro  
+
+---
+
+## 📊 Módulo de Dashboard
+
+Componentes principais:
+
+| Componente | Descrição |
+|-------------|------------|
+| **KpiGraph** | Gráfico de evolução dos KPIs (ARPU, Retenção, Conversão, Churn) usando ApexCharts |
+| **KpiStats** | Cards com valores e variação percentual |
+| **ClientMap** | Mapa de clientes ativos com integração MapLibre |
+| **SegmentImpactCard** | Gráfico donut de impacto por segmento |
+| **ActiveClientsTable** | DataTable com filtros, ordenação e tipagem forte |
+
+Endpoints: `/dash.json` e `/map.json`
+
+---
+
+## 🎫 Módulo de Tickets
+
+Funcionalidades principais:
+
+- 📋 **Tabela de tickets** com filtros (Status, Prioridade, Responsável)
+- 🔍 Busca por **cliente, assunto ou ID**
+- 🔄 **Paginação controlada por Zustand**
+- ✏️ **Ações por linha:** Editar e Ver
+- 🧠 **Modal de criação** (`CreateTicketForm`) validado com Zod
+- ⚙️ **Store global (`useTicketsStore`)** com estado derivado
+- 💾 **Integração com mocks de API** (`/ticket-management.json`)
+- 🔔 **Toasts** informativos de sucesso e erro
+
+Arquivos principais:
+```
+src/features/tickets/components/tickets-table.tsx
+src/features/tickets/components/create-ticket-form.tsx
+src/features/tickets/components/create-ticket-button.tsx
+src/features/tickets/schema/create-ticket.schema.ts
+src/features/tickets/store/tickets.store.ts
+src/features/tickets/services/get-tickets.service.ts
+```
+
+---
+
+## 💬 Chat Placeholder
+
+A rota `/chat` existe na sidebar, porém **não possui implementação funcional**.  
+Atualmente, redireciona para a página `not-found.tsx`.  
+A arquitetura já está preparada para integração futura com **chat em tempo real** (WebSocket ou Server Actions).
+
+---
+
+## 🎨 UI e UX
+
+- **Design tokens** configurados em `src/styles/globals.css`
+- **Cores, sombras e fontes** padronizadas (inclui `--shadow-accent`)
+- **Componentes base:** `Card`, `Button`, `Input`, `Select`, `Dialog`, `Table`
+- Páginas auxiliares:
+  - `loading.tsx` → tela de carregamento com animação
+  - `not-found.tsx` → página 404 personalizada
+- Sidebar com **menu lateral fixo e dropdown de usuário (Perfil / Logout)**
+
+Exemplo de botão principal:
+```tsx
+<Button className="bg-accent text-white shadow-[var(--shadow-accent)] hover:bg-accent/80">
+  Ação
+</Button>
+```
+
+---
+
+## 📂 Integração com API e Mocks
+
+O sistema consome **mock APIs públicas** hospedadas pela empresa avaliadora:
 
 ```
-feat: add login form with validation
-fix: adjust axios interceptor for token
-chore: configure eslint + prettier
-docs: update README with project structure
+NEXT_PUBLIC_API_BASE_URL=https://loomi.s3.us-east-1.amazonaws.com/mock-api-json/v2
+```
+
+Endpoints utilizados:
+```
+/dash.json
+/map.json
+/ticket-management.json
+/chat.json
+```
+
+> Todos os dados são carregados via **Axios + React Query**, com cache e revalidação automática.
+
+---
+
+## 🧠 Gerenciamento de Estado
+
+Gerenciado com **Zustand**, com stores independentes por domínio:
+
+- **Tickets Store:** controla lista, filtros, paginação e criação  
+- **Dashboard Store:** leitura de KPIs e filtros de clientes  
+- **UI Store (opcional):** controle de modais e preferências  
+
+Exemplo simplificado:
+```ts
+const { tickets, currentPage, totalPages, setPage } = useTicketsStore();
+setPage(currentPage + 1);
 ```
 
 ---
 
-## 🌱 Fluxo Git / Branches
+## ⚙️ Variáveis de Ambiente
 
-1. Desenvolva sempre em branches `feature/*`
-2. Crie um **Pull Request** para `develop`
-3. Após revisão, faça merge em `main`
-4. Deploy automatizado configurado na **Vercel**
+Arquivo `.env.local` esperado:
 
----
-
-## 🌐 APIs e Endpoints (Mock da Loomi)
-
-| Recurso                 | Endpoint                  |
-| ----------------------- | ------------------------- |
-| **Login**               | `/login.json`             |
-| **Dashboard (KPIs)**    | `/dash.json`              |
-| **Mapa de Impacto**     | `/map.json`               |
-| **Tickets**             | `/ticket-management.json` |
-| **Simulador de Planos** | `/plan.json`              |
-| **Chat / IA**           | `/chat.json`              |
-| **Visão 360° Cliente**  | `/360-view.json`          |
-
-📦 **Base URL:**  
-`https://loomi.s3.us-east-1.amazonaws.com/mock-api-json/v2`
+```env
+NEXT_PUBLIC_API_BASE_URL=https://loomi.s3.us-east-1.amazonaws.com/mock-api-json/v2
+NEXT_PUBLIC_AUTH_TOKEN_KEY=auth_token
+NODE_ENV=development
+```
 
 ---
 
-## 🧰 Bibliotecas de Suporte
+## 🧪 Como Executar o Projeto
 
-| Categoria           | Lib                           |
-| ------------------- | ----------------------------- |
-| UI Base             | shadcn/ui                     |
-| Toasts              | sonner                        |
-| Validação           | zod                           |
-| Requisições e Cache | axios + @tanstack/react-query |
-| Estado Global       | zustand                       |
-| Estilos             | tailwindcss v4                |
-| Tema                | next-themes                   |
+### Pré-requisitos
+- Node.js **20+**
+- pnpm **8+**
+
+### Passos
+```bash
+git clone <repo-url>
+cd desafio-react-luca
+pnpm install
+
+# (opcional) criar .env.local
+cp .env.example .env.local
+
+pnpm dev
+# Acesse http://localhost:3000
+```
+
+### Build de Produção
+```bash
+pnpm build && pnpm start
+```
 
 ---
 
-## 🧾 Licença
+## 🚀 Melhorias Futuras
 
-Este projeto foi desenvolvido exclusivamente para o **Desafio React da Loomi**.  
-Uso livre para fins de estudo e portfólio.
+- 💬 Implementar chat em tempo real (WebSocket ou Server Actions)  
+- ⚙️ Integração com backend real para login e CRUD  
+- 🔔 Sistema de notificações in-app  
+- 🌓 Tema dark/light global com preferências salvas  
+- 🧪 Testes unitários e E2E (Vitest / Playwright)  
+- 📈 Métricas e observabilidade (Sentry / LogRocket)
 
 ---
 
-## 👨‍💻 Autor
+## 🤖 Uso de IA e Assistência de Código
 
-**[Seu Nome Aqui]**  
-Front-end Developer  
-📧 [seuemail@email.com]  
-🌐 [linkedin.com/in/seuusuario](https://linkedin.com/in/seuusuario)
+Durante o desenvolvimento, foram utilizadas **ferramentas de inteligência artificial** e **assistentes de código** para otimizar a produtividade e padronizar o projeto.
+
+**Ferramentas utilizadas:**
+- **ChatGPT (OpenAI GPT-5)** → apoio na estruturação do projeto, tipagem de dados, refatoração de componentes e documentação.  
+- **GitHub Copilot** → autocompletar de funções, props e JSX repetitivos.  
+
+> Todas as implementações, integrações e revisões finais foram feitas manualmente, com entendimento completo do código e responsabilidade técnica integral.
+
+---
+
+## 📄 Autor e Licença
+
+**Autor:** Luiz Gustavo de Souza Vargas  
+**LinkedIn:** [linkedin.com/in/luiz-vargas](https://www.linkedin.com/in/luiz-vargas)  
+**Licença:** MIT — uso permitido para fins de estudo, portfólio e extensão do projeto.

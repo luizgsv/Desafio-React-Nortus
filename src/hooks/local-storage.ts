@@ -12,8 +12,15 @@ export function useLocalStorage() {
     return localStorage.getItem(key);
   };
 
+  const removeItem = (key: string) => {
+    if (!isBrowser) return null;
+
+    localStorage.removeItem(key);
+  };
+
   return {
     setItem,
     getItem,
+    removeItem,
   };
 }
