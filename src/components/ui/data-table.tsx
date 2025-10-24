@@ -53,7 +53,7 @@ export function DataTable<T extends { id: string | number }>({
         <TableBody>
           {data.length > 0 ? (
             data.map((row) => (
-              <TableRow key={row.id} className="border-b border-border/60">
+              <TableRow key={row.id} className="border-b border-border/60 max-w-8">
                 {columns.map((col) => (
                   <TableCell key={String(col.key)} className="px-6 py-4">
                     {col.render ? col.render(row) : (row[col.key as keyof T] as React.ReactNode)}

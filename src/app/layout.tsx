@@ -1,11 +1,11 @@
-import type { Metadata } from 'next';
-import { Inter, Space_Grotesk } from 'next/font/google';
-import '../styles/globals.css';
 import { Providers } from '@/providers';
 import 'maplibre-gl/dist/maplibre-gl.css';
+import type { Metadata } from 'next';
+import { Inter, Montserrat } from 'next/font/google';
+import '../styles/globals.css';
 
-const space_grotesk = Space_Grotesk({
-  variable: '--font-space-grotesk',
+const montserrat = Montserrat({
+  variable: '--font-montserrat',
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
 });
@@ -31,9 +31,9 @@ export default function RootLayout({
     <html
       lang="pt-BR"
       suppressHydrationWarning
-      className={`${space_grotesk.variable} ${inter.variable}`}
+      className={`${montserrat.variable} ${inter.variable} antialiased`}
     >
-      <body className="antialiased">
+      <body>
         <Providers>{children}</Providers>
       </body>
     </html>
